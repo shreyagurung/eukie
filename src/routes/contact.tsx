@@ -34,9 +34,9 @@ function ContactPage() {
 
         <div className="grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
           <aside className="space-y-8">
-            <Field label="Direct" value="hello@ephemera.archive" />
-            <Field label="Commissions" value="studio@ephemera.archive" />
-            <Field label="Press" value="press@ephemera.archive" />
+            <Field label="Direct" value="hello@eureka.archive" />
+            <Field label="Commissions" value="studio@eureka.archive" />
+            <Field label="Press" value="press@eureka.archive" />
             <Field label="Post" value={`Strandgade 38\n1401 Copenhagen K\nDenmark`} />
             <Field label="Hours" value="Tue–Fri · 10:00 – 17:00 CET" />
           </aside>
