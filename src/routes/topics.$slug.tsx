@@ -22,13 +22,13 @@ export const Route = createFileRoute("/topics/$slug")({
     return { topic, items, others: all.filter((t) => t.slug !== topic.slug) };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Topic — Eureka's Archive" }] };
+    if (!loaderData) return { meta: [{ title: "Topic — Field of Possibility" }] };
     const t = loaderData.topic;
     return {
       meta: [
-        { title: `${t.name} — Topics — Eureka's Archive` },
+        { title: `${t.name} — Topics — Field of Possibility` },
         { name: "description", content: t.description },
-        { property: "og:title", content: `${t.name} — Eureka's Archive` },
+        { property: "og:title", content: `${t.name} — Field of Possibility` },
         { property: "og:description", content: t.description },
         { property: "og:image", content: t.cover },
       ],

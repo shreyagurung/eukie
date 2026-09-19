@@ -23,9 +23,9 @@ export const Route = createFileRoute("/journal")({
   },
   head: () => ({
     meta: [
-      { title: "Journal — Eureka's Archive" },
+      { title: "Journal — Field of Possibility" },
       { name: "description", content: "Every entry in the journal. Filter by topic, format, place, tag, or year." },
-      { property: "og:title", content: "Journal — Eureka's Archive" },
+      { property: "og:title", content: "Journal — Field of Possibility" },
       { property: "og:description", content: "Every entry in the journal." },
     ],
   }),

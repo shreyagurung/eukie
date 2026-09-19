@@ -10,10 +10,12 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  /* Existing fonts. No changes. */
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
+  /* Existing colour tokens */
   --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
@@ -21,6 +23,14 @@
   --color-rule: var(--rule);
   --color-accent: var(--accent);
 
+  /* Eureka Khong homepage palette */
+  --color-home-ash: var(--home-ash);
+  --color-home-blue: var(--home-blue);
+  --color-home-orange: var(--home-orange);
+  --color-home-ink: var(--home-ink);
+  --color-home-ash-soft: var(--home-ash-soft);
+
+  /* Existing semantic colours */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -35,7 +45,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-foreground: var(--paper);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -44,14 +54,22 @@
 :root {
   --radius: 0.25rem;
 
-  /* Field Index palette */
-  --paper: oklch(0.972 0.012 95);
-  --ink: oklch(0.22 0.005 60);
-  --ink-soft: oklch(0.22 0.005 60 / 0.7);
-  --ink-mute: oklch(0.22 0.005 60 / 0.45);
-  --rule: oklch(0.22 0.005 60 / 0.1);
-  --accent: oklch(0.55 0.15 35);
+  /* Eureka Khong palette */
+  --paper: #DDE0DF;
+  --ink: #303030;
+  --ink-soft: rgba(48, 48, 48, 0.7);
+  --ink-mute: rgba(48, 48, 48, 0.45);
+  --rule: rgba(48, 48, 48, 0.12);
+  --accent: #E96B28;
 
+  /* Homepage palette */
+  --home-ash: #DDE0DF;
+  --home-ash-soft: #F0F1F0;
+  --home-blue: #A5C0CC;
+  --home-orange: #E96B28;
+  --home-ink: #303030;
+
+  /* Semantic colour mapping */
   --background: var(--paper);
   --foreground: var(--ink);
   --card: var(--paper);
@@ -60,12 +78,12 @@
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--paper);
-  --secondary: oklch(0.94 0.012 90);
+  --secondary: var(--home-blue);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.94 0.012 90);
+  --muted: var(--home-ash-soft);
   --muted-foreground: var(--ink-soft);
   --accent-foreground: var(--paper);
-  --destructive: oklch(0.55 0.22 25);
+  --destructive: #C94A3A;
   --destructive-foreground: var(--paper);
   --border: var(--rule);
   --input: var(--rule);
@@ -77,7 +95,8 @@
     border-color: var(--color-border);
   }
 
-  html, body {
+  html,
+  body {
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
@@ -91,8 +110,15 @@
 }
 
 @keyframes revealUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @utility animate-reveal {

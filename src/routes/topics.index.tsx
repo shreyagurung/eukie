@@ -11,9 +11,9 @@ export const Route = createFileRoute("/topics/")({
   },
   head: () => ({
     meta: [
-      { title: "Topics — Eureka's Archive" },
+      { title: "Topics — Field of Possibility" },
       { name: "description", content: "Thematic threads running through the archive." },
-      { property: "og:title", content: "Topics — Eureka's Archive" },
+      { property: "og:title", content: "Topics — Field of Possibility" },
       { property: "og:description", content: "Thematic threads running through the archive." },
     ],
   }),

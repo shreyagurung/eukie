@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="border-t border-rule px-6 py-16 mt-24">
       <div className="max-w-7xl mx-auto grid gap-12 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="space-y-3">
-          <div className="font-display text-2xl italic">Eureka's Archive</div>
+          <div className="font-display text-2xl italic">Field of Possibility</div>
           <p className="text-xs font-mono text-ink-mute max-w-[260px] leading-relaxed">
             A catalog of moments — long-form reflections, archival photography,
             and rhythmic media. Established 2021.
@@ -27,7 +27,7 @@ export function SiteFooter() {
         </FooterCol>
       </div>
       <div className="max-w-7xl mx-auto mt-16 pt-6 border-t border-rule flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-ink-mute">
-        <span>© 2026 Eureka Studio</span>
+        <span>© 2026 Field of Possibility</span>
         <span>Curated observations</span>
       </div>
     </footer>

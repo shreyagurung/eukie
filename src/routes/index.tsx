@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site/Nav";
 import { SiteFooter } from "@/components/site/Footer";
-import { PostCardSmall, PostListItem } from "@/components/site/PostCard";
+import {
+  PostCardSmall,
+  PostListItem,
+} from "@/components/site/PostCard";
 import { PortraitVideoGrid } from "@/components/media/VideoGrid";
 import {
   fetchPublishedPosts,
@@ -19,16 +22,40 @@ export const Route = createFileRoute("/")({
       fetchPublishedPosts(),
       fetchTopics(),
     ]);
+
     return { posts, topics };
   },
+
   head: () => ({
     meta: [
-      { title: "Eureka's Archive Archive — A visual field-notes journal" },
-      { name: "description", content: "Long-form reflections, archival photography, and rhythmic motion studies from transit and transition." },
-      { property: "og:title", content: "Eureka's Archive Archive" },
-      { property: "og:description", content: "A visual field-notes journal and storytelling archive." },
+      {
+        title: "Eureka Khong — Regenerative Ecological Design & Field Notes",
+      },
+      {
+        name: "description",
+        content:
+          "Eureka Khong explores regenerative ecological design, social and ecological systems, architecture, community, art and the everyday work of making life more meaningful.",
+      },
+      {
+        property: "og:title",
+        content: "Eureka Khong — Regenerative Ecological Design & Field Notes",
+      },
+      {
+        property: "og:description",
+        content:
+          "Projects, reflections and observations exploring ecology, design, place, community and lived experience.",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
     ],
   }),
+
   component: HomePage,
 });
 
@@ -37,134 +64,365 @@ function HomePage() {
     posts: import("@/lib/cms/types").Post[];
     topics: import("@/lib/cms/types").Topic[];
   };
+
   const featured = posts.filter((p) => p.featured);
   const heroPost = featured[0] ?? posts[0];
   const otherFeatured = featured.slice(1, 4);
   const latest = posts.slice(0, 8);
 
   const motionVideos = posts
-    .flatMap((p) => p.body.filter((b) => b.type === "video-grid-portrait"))
-    .flatMap((b) => (b.type === "video-grid-portrait" ? b.videos : []))
+    .flatMap((p) =>
+      p.body.filter((b) => b.type === "video-grid-portrait"),
+    )
+    .flatMap((b) =>
+      b.type === "video-grid-portrait" ? b.videos : [],
+    )
     .slice(0, 5);
 
   const places = allPlacesFrom(posts);
   const years = allYearsFrom(posts);
 
   return (
-    <div className="min-h-screen bg-paper">
+    <div className="min-h-screen bg-home-ash font-home-body text-home-ink">
       <SiteNav />
 
-      <main className="max-w-7xl mx-auto px-6 py-12 md:py-20">
-        <header className="max-w-3xl mb-20 md:mb-32 animate-reveal">
-          <div className="text-[12px] font-mono text-accent mb-4 tracking-widest">
-            [ FIELD NOTES · EST. 2021 ]
+      <main>
+        {/* HERO */}
+        <header className="mx-auto grid min-h-[70vh] max-w-7xl grid-cols-1 content-between gap-14 px-6 pb-12 pt-14 md:grid-cols-12 md:gap-8 md:pb-18 md:pt-20">
+          <div className="animate-reveal md:col-span-8">
+            <p className="mb-10 font-home-display text-[10px] uppercase tracking-normal">
+              Eureka Khong · Design · Ecology · Inquiry
+            </p>
+
+            <h1 className="font-home-display text-2xl font-bold uppercase leading-none md:text-3xl">
+              Eureka Khong
+            </h1>
+
+            <p className="mt-10 max-w-4xl font-home-display text-4xl leading-[1.15] md:text-6xl lg:text-7xl">
+              Exploring more
+              <br />
+              <span className="italic font-normal">
+                regenerative
+              </span>{" "}
+              ways
+              <br />
+              of living.
+            </p>
           </div>
-          <h1 className="font-display text-5xl md:text-7xl leading-[0.95] text-balance mb-8">
-            Observations on the <i>quiet permanence</i> of neglected spaces.
-          </h1>
-          <p className="text-lg md:text-xl text-ink-soft leading-relaxed max-w-xl">
-            A living repository of long-form reflections, archival photography,
-            and rhythmic media gathered from transit and transition.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/journal" className="px-5 py-2.5 bg-ink text-paper text-[11px] font-mono uppercase tracking-widest hover:bg-accent transition-colors">
-              Enter the journal
-            </Link>
-            <Link to="/visuals" className="px-5 py-2.5 border border-ink text-ink text-[11px] font-mono uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors">
-              Browse visuals
-            </Link>
+
+          <div className="flex flex-col justify-end border-t border-home-ink pt-5 md:col-span-3 md:col-start-10 md:border-t-0 md:pt-0">
+            <p className="max-w-sm text-base font-light leading-relaxed">
+              A collection of projects, reflections and observations at the
+              intersection of ecology, design, architecture, community and
+              lived experience.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/journal"
+                className="bg-home-orange px-5 py-3 font-home-display text-[10px] uppercase transition-transform hover:-translate-y-0.5"
+              >
+                Enter journal
+              </Link>
+
+              <Link
+                to="/about"
+                className="border border-home-ink px-5 py-3 font-home-display text-[10px] uppercase transition-colors hover:bg-home-ink hover:text-home-ash"
+              >
+                About Eureka
+              </Link>
+            </div>
           </div>
         </header>
 
+        {/* FEATURED FIELD NOTE */}
         {heroPost && (
-          <section className="mb-32 animate-reveal">
-            <div className="grid md:grid-cols-12 gap-8 items-start">
-              <Link to="/journal/$slug" params={{ slug: heroPost.slug }} className="md:col-span-8 group block">
-                <div className="aspect-[3/2] bg-secondary overflow-hidden ring-1 ring-rule">
-                  <img src={heroPost.cover.src} alt={heroPost.cover.alt} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.02]" />
+          <section className="bg-home-blue px-6 py-12 md:py-20">
+            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-12 md:items-stretch">
+              <Link
+                to="/journal/$slug"
+                params={{ slug: heroPost.slug }}
+                className="group relative block md:col-span-8"
+              >
+                <div className="aspect-[4/3] overflow-hidden bg-home-ash-soft md:aspect-[16/11]">
+                  <img
+                    src={heroPost.cover.src}
+                    alt={heroPost.cover.alt}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
                 </div>
-                <div className="mt-6 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-4 md:gap-12">
-                  <div className="font-display text-3xl md:text-4xl group-hover:italic transition-all truncate">{heroPost.title}</div>
-                  <div className="hidden md:block flex-1 border-b border-rule h-px" />
-                  <div className="text-[11px] font-mono uppercase tracking-widest text-ink-mute shrink-0">
-                    {new Date(heroPost.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })} · {heroPost.place}
-                  </div>
-                </div>
+
+                <span className="absolute left-0 top-0 bg-home-orange px-4 py-3 font-home-display text-[10px] uppercase">
+                  Featured reflection
+                </span>
               </Link>
 
-              <div className="md:col-span-4 space-y-6 md:pt-4">
-                <div className="text-[11px] font-mono text-accent tracking-widest">REF · {heroPost.slug.slice(0, 12).toUpperCase()}</div>
-                <p className="text-sm leading-relaxed text-ink/80">{heroPost.excerpt}</p>
-                <Link to="/journal/$slug" params={{ slug: heroPost.slug }} className="inline-block px-5 py-2 border border-ink text-[11px] font-mono uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors">
-                  Read essay
+              <div className="md:col-span-4 md:flex md:items-end">
+                <div className="flex h-full flex-col bg-home-ash p-6 md:p-8">
+                  <p className="mb-5 font-home-display text-[10px] uppercase">
+                    Ref. {heroPost.slug.slice(0, 12)} · {heroPost.place}
+                  </p>
+
+                  <h2 className="font-home-display text-2xl leading-tight md:text-3xl">
+                    {heroPost.title}
+                  </h2>
+
+                  <p className="mt-5 flex-1 text-sm font-light leading-relaxed">
+                    {heroPost.excerpt}
+                  </p>
+
+                  <div className="mt-6 flex items-end justify-between gap-4 border-t border-home-ink pt-4">
+                    <span className="font-home-display text-[10px] uppercase">
+                      {new Date(heroPost.date).toLocaleDateString("en-GB", {
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+
+                    <Link
+                      to="/journal/$slug"
+                      params={{ slug: heroPost.slug }}
+                      className="font-home-display text-xs uppercase underline decoration-home-orange decoration-2 underline-offset-4"
+                    >
+                      Read reflection ↗
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ALSO FEATURED */}
+        {otherFeatured.length > 0 && (
+          <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+            <SectionHead
+              title="Selected work"
+              sub="Projects, ideas and ongoing inquiries"
+            />
+
+            <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+              {otherFeatured.map((p, index) => (
+                <div
+                  key={p.slug}
+                  className={index === 1 ? "md:mt-16" : ""}
+                >
+                  <PostCardSmall post={p} />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* THEMATIC THREADS */}
+        {topics.length > 0 && (
+          <section className="bg-home-ink px-6 py-20 text-home-ash md:py-28">
+            <div className="mx-auto max-w-7xl">
+              <SectionHead
+                title="Fields of inquiry"
+                sub="Different threads of the same exploration"
+                link={{
+                  to: "/topics",
+                  label: "Explore all",
+                }}
+                inverse
+              />
+
+              <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-6">
+                {topics.map((t, index) => (
+                  <Link
+                    key={t.slug}
+                    to="/topics/$slug"
+                    params={{ slug: t.slug }}
+                    className="group block"
+                  >
+                    <div className="aspect-[4/5] overflow-hidden">
+                      <img
+                        src={t.cover}
+                        alt={t.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                    </div>
+
+                    <div className="mt-3 flex items-start justify-between gap-3 border-t border-home-ash/40 pt-3">
+                      <span className="font-home-display text-sm md:text-base">
+                        {t.name}
+                      </span>
+
+                      <span className="font-home-display text-[9px] text-home-blue">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+
+                <Link
+                  to="/topics"
+                  className="group hidden md:block"
+                >
+                  <div className="flex aspect-[4/5] items-end bg-home-orange p-4">
+                    <span className="font-home-display text-[10px] uppercase text-home-ink">
+                      Follow an inquiry →
+                    </span>
+                  </div>
+
+                  <div className="mt-3 flex items-start justify-between gap-3 border-t border-home-ash/40 pt-3">
+                    <span className="font-home-display text-sm text-home-ash md:text-base">
+                      All fields
+                    </span>
+
+                    <span className="font-home-display text-[9px] text-home-blue">
+                      →
+                    </span>
+                  </div>
                 </Link>
               </div>
             </div>
           </section>
         )}
 
-        {otherFeatured.length > 0 && (
-          <section className="mb-32">
-            <SectionHead title="Also featured" sub="Selections from the editor" />
-            <div className="grid md:grid-cols-3 gap-8 md:gap-10">
-              {otherFeatured.map((p) => <PostCardSmall key={p.slug} post={p} />)}
+        {/* MOTION */}
+        {motionVideos.length > 0 && (
+          <section className="bg-home-ash-soft px-6 py-20 md:py-28">
+            <div className="mx-auto max-w-7xl">
+              <div className="mb-8 flex items-baseline justify-between gap-4 border-b border-home-ink pb-4">
+                <h2 className="font-home-display text-xl md:text-2xl">
+                  Moving observations
+                </h2>
+
+                <Link
+                  to="/visuals"
+                  className="font-home-display text-[10px] uppercase"
+                >
+                  Visual archive →
+                </Link>
+              </div>
+
+              <PortraitVideoGrid videos={motionVideos} />
             </div>
           </section>
         )}
 
-        {topics.length > 0 && (
-          <section className="mb-32">
-            <SectionHead title="Thematic threads" sub="Topics & ongoing journeys" link={{ to: "/topics", label: "All topics" }} />
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-              {topics.map((t) => (
-                <Link key={t.slug} to="/topics/$slug" params={{ slug: t.slug }} className="group block">
-                  <div className="aspect-square bg-secondary overflow-hidden ring-1 ring-rule">
-                    <img src={t.cover} alt={t.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-                  </div>
-                  <div className="mt-3">
-                    <div className="font-display text-lg group-hover:italic group-hover:text-accent transition-all">{t.name}</div>
-                  </div>
-                </Link>
+        {/* LATEST ENTRIES */}
+        <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+          <SectionHead
+            title="Recent thoughts"
+            sub="Notes from an ongoing inquiry"
+            link={{
+              to: "/journal",
+              label: "Enter journal",
+            }}
+          />
+
+          <div className="grid gap-10 md:grid-cols-12">
+            {latest[0] && (
+              <Link
+                to="/journal/$slug"
+                params={{ slug: latest[0].slug }}
+                className="group md:col-span-5"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-home-blue">
+                  <img
+                    src={latest[0].cover.src}
+                    alt={latest[0].cover.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+
+                  <span className="absolute bottom-0 left-0 bg-home-orange px-4 py-3 font-home-display text-[10px] uppercase">
+                    Latest note
+                  </span>
+                </div>
+
+                <h3 className="mt-5 font-home-display text-2xl leading-tight">
+                  {latest[0].title}
+                </h3>
+              </Link>
+            )}
+
+            <div className="md:col-span-7 md:border-l md:border-home-ink md:pl-8">
+              {latest.slice(1).map((p, i) => (
+                <PostListItem
+                  key={p.slug}
+                  post={p}
+                  index={i + 1}
+                />
               ))}
             </div>
-          </section>
-        )}
-
-        {motionVideos.length > 0 && (
-          <section className="mb-32">
-            <div className="flex justify-between items-baseline border-b border-rule pb-4 mb-8">
-              <h2 className="font-display text-2xl md:text-3xl">Contact sheet: motion</h2>
-              <Link to="/visuals" className="font-mono text-[10px] uppercase tracking-widest text-ink-mute hover:text-accent">9:16 · view all →</Link>
-            </div>
-            <PortraitVideoGrid videos={motionVideos} />
-          </section>
-        )}
-
-        <section className="mb-32">
-          <SectionHead title="Latest entries" sub="The reverse chronological log" link={{ to: "/journal", label: "Full archive" }} />
-          <div>
-            {latest.map((p, i) => <PostListItem key={p.slug} post={p} index={i} />)}
           </div>
         </section>
 
-        <section className="mb-12 border-t border-rule pt-12">
-          <div className="grid md:grid-cols-3 gap-12">
+        {/* ARCHIVE */}
+        <section className="bg-home-blue px-6 py-16">
+          <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-3">
             <ArchiveCol title="By place">
-              {places.slice(0, 6).map((p) => <li key={p} className="font-display text-xl">{p}</li>)}
-            </ArchiveCol>
-            <ArchiveCol title="By year">
-              {years.map((y) => (
-                <li key={y} className="font-mono text-sm flex justify-between border-b border-rule pb-2">
-                  <span>{y}</span>
-                  <span className="text-ink-mute">{posts.filter((p) => new Date(p.date).getFullYear() === y).length} entries</span>
+              {places.slice(0, 6).map((p) => (
+                <li
+                  key={p}
+                  className="font-home-display text-lg"
+                >
+                  {p}
                 </li>
               ))}
             </ArchiveCol>
+
+            <ArchiveCol title="By year">
+              {years.map((y) => (
+                <li
+                  key={y}
+                  className="flex justify-between border-b border-home-ink/30 pb-2 font-home-display text-xs"
+                >
+                  <span>{y}</span>
+                  <span>
+                    {
+                      posts.filter(
+                        (p) =>
+                          new Date(p.date).getFullYear() === y,
+                      ).length
+                    }{" "}
+                    entries
+                  </span>
+                </li>
+              ))}
+            </ArchiveCol>
+
             <ArchiveCol title="Entry points">
-              <li><Link to="/journal" className="font-display text-xl hover:text-accent">All entries</Link></li>
-              <li><Link to="/visuals" className="font-display text-xl hover:text-accent italic">Visual archive</Link></li>
-              <li><Link to="/topics" className="font-display text-xl hover:text-accent">Topics</Link></li>
-              <li><Link to="/about" className="font-display text-xl hover:text-accent">About the studio</Link></li>
+              <li>
+                <Link
+                  to="/journal"
+                  className="font-home-display text-lg underline decoration-home-orange decoration-2 underline-offset-4"
+                >
+                  Journal
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/visuals"
+                  className="font-home-display text-lg"
+                >
+                  Visual archive
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/topics"
+                  className="font-home-display text-lg"
+                >
+                  Fields of inquiry
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/about"
+                  className="font-home-display text-lg"
+                >
+                  About Eureka
+                </Link>
+              </li>
             </ArchiveCol>
           </div>
         </section>
@@ -175,15 +433,49 @@ function HomePage() {
   );
 }
 
-function SectionHead({ title, sub, link }: { title: string; sub?: string; link?: { to: string; label: string } }) {
+function SectionHead({
+  title,
+  sub,
+  link,
+  inverse = false,
+}: {
+  title: string;
+  sub?: string;
+  link?: {
+    to: string;
+    label: string;
+  };
+  inverse?: boolean;
+}) {
   return (
-    <div className="flex justify-between items-end border-b border-rule pb-4 mb-8 gap-4">
+    <div
+      className={`mb-10 flex items-end justify-between gap-4 border-b pb-4 ${
+        inverse
+          ? "border-home-ash/40"
+          : "border-home-ink"
+      }`}
+    >
       <div className="min-w-0">
-        <h2 className="font-display text-2xl md:text-3xl">{title}</h2>
-        {sub && <div className="text-[10px] font-mono uppercase tracking-widest text-ink-mute mt-1">{sub}</div>}
+        <h2 className="font-home-display text-xl md:text-2xl">
+          {title}
+        </h2>
+
+        {sub && (
+          <div
+            className={`mt-2 font-home-display text-[9px] uppercase ${
+              inverse ? "text-home-blue" : ""
+            }`}
+          >
+            {sub}
+          </div>
+        )}
       </div>
+
       {link && (
-        <Link to={link.to} className="text-[10px] font-mono uppercase tracking-widest text-ink-mute hover:text-accent shrink-0">
+        <Link
+          to={link.to}
+          className="shrink-0 font-home-display text-[10px] uppercase underline decoration-home-orange decoration-2 underline-offset-4"
+        >
           {link.label} →
         </Link>
       )}
@@ -191,10 +483,19 @@ function SectionHead({ title, sub, link }: { title: string; sub?: string; link?:
   );
 }
 
-function ArchiveCol({ title, children }: { title: string; children: React.ReactNode }) {
+function ArchiveCol({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div>
-      <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-mute mb-6">{title}</h4>
+      <h4 className="mb-6 border-b border-home-ink pb-3 font-home-display text-[10px] uppercase">
+        {title}
+      </h4>
+
       <ul className="space-y-3">{children}</ul>
     </div>
   );

@@ -77,9 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Eureka's Archive — A visual field-notes journal" },
+      { title: "Field of Possibility — A visual field-notes journal" },
       { name: "description", content: "A living repository of long-form reflections, archival photography, and rhythmic media gathered from transit and transition." },
-      { property: "og:title", content: "Eureka's Archive" },
+      { property: "og:title", content: "Field of Possibility" },
       { property: "og:description", content: "A visual field-notes journal and storytelling archive." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

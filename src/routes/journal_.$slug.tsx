@@ -41,11 +41,11 @@ export const Route = createFileRoute("/journal_/$slug")({
     };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Entry — Eureka's Archive" }] };
+    if (!loaderData) return { meta: [{ title: "Entry — Field of Possibility" }] };
     const p = loaderData.post;
     return {
       meta: [
-        { title: `${p.title} — Eureka's Archive` },
+        { title: `${p.title} — Field of Possibility` },
         { name: "description", content: p.excerpt },
         { property: "og:title", content: p.title },
         { property: "og:description", content: p.excerpt },

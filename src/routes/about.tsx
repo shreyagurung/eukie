@@ -5,9 +5,9 @@ import { SiteFooter } from "@/components/site/Footer";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Eureka's Archive" },
+      { title: "About — Field of Possibility" },
       { name: "description", content: "Notes on the studio, the practice, and the rules of the archive." },
-      { property: "og:title", content: "About — Eureka's Archive" },
+      { property: "og:title", content: "About — Field of Possibility" },
       { property: "og:description", content: "Notes on the studio and the rules of the archive." },
     ],
   }),

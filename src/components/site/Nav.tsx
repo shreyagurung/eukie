@@ -20,7 +20,7 @@ export function SiteNav() {
             to="/"
             className="font-display text-2xl font-semibold tracking-tight italic truncate"
           >
-            Eureka's Archive
+            Field of Possibility
           </Link>
           <div className="hidden md:flex gap-6 text-[11px] font-mono uppercase tracking-widest text-ink-soft">
             {links.slice(1).map((l) => (

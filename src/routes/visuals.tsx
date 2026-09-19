@@ -13,9 +13,9 @@ export const Route = createFileRoute("/visuals")({
   },
   head: () => ({
     meta: [
-      { title: "Visual archive — Eureka's Archive" },
+      { title: "Visual archive — Field of Possibility" },
       { name: "description", content: "Photographs and videos from the archive, browsable separately from the journal." },
-      { property: "og:title", content: "Visual archive — Eureka's Archive" },
+      { property: "og:title", content: "Visual archive — Field of Possibility" },
       { property: "og:description", content: "A dedicated browse of photographs and moving image." },
     ],
   }),
