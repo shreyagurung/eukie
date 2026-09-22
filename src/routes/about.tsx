@@ -76,7 +76,7 @@ function AboutPage() {
         </section>
 
         {/* INTRODUCTION */}
-        <section className="mt-24 border-t border-home-ink pt-12 md:mt-32 md:pt-16">
+        <section className="mt-10 pt-4 md:mt-14 md:pt-6">
           <div className="grid gap-12 md:grid-cols-12 md:gap-8">
             {/* SIDEBAR / FIELD NOTES */}
             <aside className="md:col-span-4">
