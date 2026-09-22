@@ -1,27 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site/Nav";
 import { SiteFooter } from "@/components/site/Footer";
-import {
-  PostCardSmall,
-  PostListItem,
-} from "@/components/site/PostCard";
-import { PortraitVideoGrid } from "@/components/media/VideoGrid";
-import {
-  fetchPublishedPosts,
-  fetchTopics,
-  allPlacesFrom,
-  allYearsFrom,
-} from "@/lib/cms/queries";
+import { PostCardSmall, PostListItem } from "@/components/site/PostCard";
+import { fetchPublishedPosts, fetchTopics, allPlacesFrom, allYearsFrom } from "@/lib/cms/queries";
 
 export const Route = createFileRoute("/")({
   loader: async (): Promise<{
     posts: import("@/lib/cms/types").Post[];
     topics: import("@/lib/cms/types").Topic[];
   }> => {
-    const [posts, topics] = await Promise.all([
-      fetchPublishedPosts(),
-      fetchTopics(),
-    ]);
+    const [posts, topics] = await Promise.all([fetchPublishedPosts(), fetchTopics()]);
 
     return { posts, topics };
   },
@@ -70,15 +58,6 @@ function HomePage() {
   const otherFeatured = featured.slice(1, 4);
   const latest = posts.slice(0, 8);
 
-  const motionVideos = posts
-    .flatMap((p) =>
-      p.body.filter((b) => b.type === "video-grid-portrait"),
-    )
-    .flatMap((b) =>
-      b.type === "video-grid-portrait" ? b.videos : [],
-    )
-    .slice(0, 5);
-
   const places = allPlacesFrom(posts);
   const years = allYearsFrom(posts);
 
@@ -101,10 +80,7 @@ function HomePage() {
             <p className="mt-10 max-w-4xl font-home-display text-4xl leading-[1.15] md:text-6xl lg:text-7xl">
               Exploring more
               <br />
-              <span className="italic font-normal">
-                regenerative
-              </span>{" "}
-              ways
+              <span className="italic font-normal">regenerative</span> ways
               <br />
               of living.
             </p>
@@ -112,9 +88,8 @@ function HomePage() {
 
           <div className="flex flex-col justify-end border-t border-home-ink pt-5 md:col-span-3 md:col-start-10 md:border-t-0 md:pt-0">
             <p className="max-w-sm text-base font-light leading-relaxed">
-              A collection of projects, reflections and observations at the
-              intersection of ecology, design, architecture, community and
-              lived experience.
+              A collection of projects, reflections and observations at the intersection of ecology,
+              design, architecture, community and lived experience.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -196,17 +171,11 @@ function HomePage() {
         {/* ALSO FEATURED */}
         {otherFeatured.length > 0 && (
           <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-            <SectionHead
-              title="Selected work"
-              sub="Projects, ideas and ongoing inquiries"
-            />
+            <SectionHead title="Selected work" sub="Projects, ideas and ongoing inquiries" />
 
             <div className="grid gap-12 md:grid-cols-3 md:gap-8">
               {otherFeatured.map((p, index) => (
-                <div
-                  key={p.slug}
-                  className={index === 1 ? "md:mt-16" : ""}
-                >
+                <div key={p.slug} className={index === 1 ? "md:mt-16" : ""}>
                   <PostCardSmall post={p} />
                 </div>
               ))}
@@ -246,9 +215,7 @@ function HomePage() {
                     </div>
 
                     <div className="mt-3 flex items-start justify-between gap-3 border-t border-home-ash/40 pt-3">
-                      <span className="font-home-display text-sm md:text-base">
-                        {t.name}
-                      </span>
+                      <span className="font-home-display text-sm md:text-base">{t.name}</span>
 
                       <span className="font-home-display text-[9px] text-home-blue">
                         {String(index + 1).padStart(2, "0")}
@@ -257,10 +224,7 @@ function HomePage() {
                   </Link>
                 ))}
 
-                <Link
-                  to="/topics"
-                  className="group hidden md:block"
-                >
+                <Link to="/topics" className="group hidden md:block">
                   <div className="flex aspect-[4/5] items-end bg-home-orange p-4">
                     <span className="font-home-display text-[10px] uppercase text-home-ink">
                       Follow an inquiry →
@@ -272,9 +236,7 @@ function HomePage() {
                       All fields
                     </span>
 
-                    <span className="font-home-display text-[9px] text-home-blue">
-                      →
-                    </span>
+                    <span className="font-home-display text-[9px] text-home-blue">→</span>
                   </div>
                 </Link>
               </div>
@@ -282,27 +244,8 @@ function HomePage() {
           </section>
         )}
 
-        {/* MOTION */}
-        {motionVideos.length > 0 && (
-          <section className="bg-home-ash-soft px-6 py-20 md:py-28">
-            <div className="mx-auto max-w-7xl">
-              <div className="mb-8 flex items-baseline justify-between gap-4 border-b border-home-ink pb-4">
-                <h2 className="font-home-display text-xl md:text-2xl">
-                  Moving observations
-                </h2>
-
-                <Link
-                  to="/visuals"
-                  className="font-home-display text-[10px] uppercase"
-                >
-                  Visual archive →
-                </Link>
-              </div>
-
-              <PortraitVideoGrid videos={motionVideos} />
-            </div>
-          </section>
-        )}
+        {/* FEATURED VIDEOS */}
+        <FeaturedVideos />
 
         {/* LATEST ENTRIES */}
         <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
@@ -335,19 +278,13 @@ function HomePage() {
                   </span>
                 </div>
 
-                <h3 className="mt-5 font-home-display text-2xl leading-tight">
-                  {latest[0].title}
-                </h3>
+                <h3 className="mt-5 font-home-display text-2xl leading-tight">{latest[0].title}</h3>
               </Link>
             )}
 
             <div className="md:col-span-7 md:border-l md:border-home-ink md:pl-8">
               {latest.slice(1).map((p, i) => (
-                <PostListItem
-                  key={p.slug}
-                  post={p}
-                  index={i + 1}
-                />
+                <PostListItem key={p.slug} post={p} index={i + 1} />
               ))}
             </div>
           </div>
@@ -358,10 +295,7 @@ function HomePage() {
           <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-3">
             <ArchiveCol title="By place">
               {places.slice(0, 6).map((p) => (
-                <li
-                  key={p}
-                  className="font-home-display text-lg"
-                >
+                <li key={p} className="font-home-display text-lg">
                   {p}
                 </li>
               ))}
@@ -374,14 +308,9 @@ function HomePage() {
                   className="flex justify-between border-b border-home-ink/30 pb-2 font-home-display text-xs"
                 >
                   <span>{y}</span>
+
                   <span>
-                    {
-                      posts.filter(
-                        (p) =>
-                          new Date(p.date).getFullYear() === y,
-                      ).length
-                    }{" "}
-                    entries
+                    {posts.filter((p) => new Date(p.date).getFullYear() === y).length} entries
                   </span>
                 </li>
               ))}
@@ -398,28 +327,19 @@ function HomePage() {
               </li>
 
               <li>
-                <Link
-                  to="/visuals"
-                  className="font-home-display text-lg"
-                >
+                <Link to="/visuals" className="font-home-display text-lg">
                   Visual archive
                 </Link>
               </li>
 
               <li>
-                <Link
-                  to="/topics"
-                  className="font-home-display text-lg"
-                >
+                <Link to="/topics" className="font-home-display text-lg">
                   Fields of inquiry
                 </Link>
               </li>
 
               <li>
-                <Link
-                  to="/about"
-                  className="font-home-display text-lg"
-                >
+                <Link to="/about" className="font-home-display text-lg">
                   About Eureka
                 </Link>
               </li>
@@ -432,6 +352,90 @@ function HomePage() {
     </div>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/* FEATURED VIDEOS                                                            */
+/* -------------------------------------------------------------------------- */
+
+function FeaturedVideos() {
+  const videos = [
+    {
+      id: "jx9j-trdK0U",
+      number: "01",
+    },
+    {
+      id: "cv-GBxD157s",
+      number: "02",
+    },
+  ];
+
+  return (
+    <section className="bg-home-ash-soft px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl">
+        {/* SECTION HEADER */}
+        <div className="mb-8 flex items-end justify-between gap-6 border-b border-home-ink pb-4">
+          <div>
+            <h2 className="font-home-display text-xl md:text-2xl">On video</h2>
+
+            <p className="mt-2 font-home-display text-[9px] uppercase">
+              A couple of things worth watching
+            </p>
+          </div>
+
+          <Link
+            to="/visuals"
+            className="shrink-0 font-home-display text-[10px] uppercase underline decoration-home-orange decoration-2 underline-offset-4"
+          >
+            Visual archive →
+          </Link>
+        </div>
+
+        {/* VIDEO GRID */}
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
+          {videos.map((video) => (
+            <article key={video.id} className="group">
+              {/* VIDEO */}
+              <div className="relative aspect-video overflow-hidden bg-home-ink">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0&playsinline=1`}
+                  title={`Eureka Khong video ${video.number}`}
+                  className="absolute inset-0 h-full w-full"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+
+              {/* VIDEO META */}
+              <div className="mt-3 flex items-center justify-between gap-4 border-t border-home-ink pt-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-home-display text-[10px] text-home-orange">
+                    {video.number}
+                  </span>
+
+                  <span className="font-home-display text-[10px] uppercase">Video</span>
+                </div>
+
+                <a
+                  href={`https://youtu.be/${video.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-home-display text-[10px] uppercase underline decoration-home-orange decoration-2 underline-offset-4"
+                >
+                  YouTube ↗
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* SECTION HEADER                                                             */
+/* -------------------------------------------------------------------------- */
 
 function SectionHead({
   title,
@@ -450,15 +454,11 @@ function SectionHead({
   return (
     <div
       className={`mb-10 flex items-end justify-between gap-4 border-b pb-4 ${
-        inverse
-          ? "border-home-ash/40"
-          : "border-home-ink"
+        inverse ? "border-home-ash/40" : "border-home-ink"
       }`}
     >
       <div className="min-w-0">
-        <h2 className="font-home-display text-xl md:text-2xl">
-          {title}
-        </h2>
+        <h2 className="font-home-display text-xl md:text-2xl">{title}</h2>
 
         {sub && (
           <div
@@ -483,13 +483,11 @@ function SectionHead({
   );
 }
 
-function ArchiveCol({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+/* -------------------------------------------------------------------------- */
+/* ARCHIVE COLUMN                                                             */
+/* -------------------------------------------------------------------------- */
+
+function ArchiveCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
       <h4 className="mb-6 border-b border-home-ink pb-3 font-home-display text-[10px] uppercase">
