@@ -160,17 +160,17 @@ function AboutPage() {
               </div>
 
               {/* LARGE QUOTE */}
-              <div className="my-20 border-y border-home-ink py-12 md:my-28 md:py-16">
-                <blockquote className="relative">
-                  <p className="max-w-[15ch] font-home-display text-4xl italic leading-[1.05] text-home-ink/85 md:text-6xl">
-                    “What else is there?”
-                  </p>
+<div className="my-10 py-4 md:my-14 md:py-6">
+  <blockquote className="relative">
+    <p className="max-w-[15ch] font-home-display text-4xl italic leading-[1.05] text-home-ink/85 md:text-6xl">
+      “What else is there?”
+    </p>
 
-                  <cite className="mt-6 block font-mono text-[10px] uppercase tracking-widest text-home-ink/50">
-                    On social and ecological systems
-                  </cite>
-                </blockquote>
-              </div>
+    <cite className="mt-6 block font-mono text-[10px] uppercase tracking-widest text-home-ink/50">
+      On social and ecological systems
+    </cite>
+  </blockquote>
+</div>
 
               {/* CONTINUING THOUGHT */}
               <div className="max-w-[68ch] space-y-8">
@@ -194,65 +194,69 @@ function AboutPage() {
               </div>
 
               {/* CURRENT WORK */}
-              <div className="mt-20 border-t border-home-ink pt-8 md:mt-28">
-                <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-home-ink/50">
-                  Current engagement
-                </p>
+<div className="mt-10 pt-4 md:mt-14 md:pt-6">
+  <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-home-ink/50">
+    Current engagement
+  </p>
 
-                <p className="text-lg leading-[1.7] text-home-ink/90">
-                  For more on my current engagement, visit{" "}
-                  <a
-                    href="https://www.projectpotential.org"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-home-orange decoration-2 underline-offset-4"
-                  >
-                    Project Potential ↗
-                  </a>
-                  .
-                </p>
-              </div>
+  <p className="text-lg leading-[1.7] text-home-ink/90">
+    For more on my current engagement, visit{" "}
+    <a
+      href="https://www.projectpotential.org"
+      target="_blank"
+      rel="noreferrer"
+      className="underline decoration-home-orange decoration-2 underline-offset-4"
+    >
+      Project Potential ↗
+    </a>
+    .
+  </p>
+</div>
 
+              
               {/* CONTACT */}
-              <div className="mt-16 border-t border-home-ink pt-8 md:mt-20">
-                <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-home-ink/50">
-                  Say hello
-                </p>
+<div className="mt-10 pt-4 md:mt-14 md:pt-6">
+  <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-home-ink/50">
+    Say hello
+  </p>
 
-                <p className="text-lg leading-[1.7] text-home-ink/90">Happy to connect.</p>
+  <p className="text-lg leading-[1.7] text-home-ink/90">
+    Happy to connect.
+  </p>
 
-                <a
-                  href="mailto:eurekakhong@gmail.com"
-                  className="mt-3 inline-block font-home-display text-xl underline decoration-home-orange decoration-2 underline-offset-4 md:text-2xl"
-                >
-                  eurekakhong@gmail.com
-                </a>
-              </div>
+  <a
+    href="mailto:eurekakhong@gmail.com"
+    className="mt-3 inline-block font-home-display text-xl underline decoration-home-orange decoration-2 underline-offset-4 md:text-2xl"
+  >
+    eurekakhong@gmail.com
+  </a>
+</div>
             </article>
           </div>
         </section>
+    
 
         {/* JOURNAL TRANSITION */}
-        <section className="mt-24 border-t border-home-ink pt-8 md:mt-36 md:pt-10">
-          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-home-ink/50">
-                Continue exploring
-              </p>
+<section className="mt-10 pt-4 md:mt-14 md:pt-6">
+  <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-home-ink/50">
+        Continue exploring
+      </p>
 
-              <p className="font-home-display text-2xl md:text-3xl">
-                There&apos;s more to explore.
-              </p>
-            </div>
+      <p className="font-home-display text-2xl md:text-3xl">
+        There&apos;s more to explore.
+      </p>
+    </div>
 
-            <Link
-              to="/journal"
-              className="font-home-display text-lg underline decoration-home-orange decoration-2 underline-offset-4 hover:text-home-orange md:text-xl"
-            >
-              Explore the journal →
-            </Link>
-          </div>
-        </section>
+    <Link
+      to="/journal"
+      className="font-home-display text-lg underline decoration-home-orange decoration-2 underline-offset-4 hover:text-home-orange md:text-xl"
+    >
+      Explore the journal →
+    </Link>
+  </div>
+</section>
       </main>
 
       <SiteFooter />
